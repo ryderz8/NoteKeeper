@@ -1,5 +1,27 @@
 package com.app.notekeeper.feature.data.repository
 
-class NoteRepositoryImpl {
+import com.app.notekeeper.feature.data.source.NoteDao
+import com.app.notekeeper.feature.domain.model.Note
+import com.app.notekeeper.feature.domain.repository.NoteRepository
+import kotlinx.coroutines.flow.Flow
+
+class NoteRepositoryImpl(
+    private val noteDao: NoteDao
+) : NoteRepository{
+    override fun getNotes(): Flow<List<Note>> {
+        return noteDao.getNotes()
+    }
+
+    override suspend fun getNoteById(id: Int): Note? {
+        return noteDao.getNoteById(id)
+    }
+
+    override suspend fun insertNote(note: Note) {
+        noteDao.insertNote(note)
+    }
+
+    override suspend fun deleteNote(note: Note) {
+        noteDao.deleteNote(note)
+    }
 
 }
